@@ -6,6 +6,8 @@ import { toast } from "react-toastify"
 import { roomAPI } from "src/apis/room.api"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
+import getMedia from "src/utils/getMedia"
+import { format } from "date-fns"
 
 type FormData = TypeRoom
 
@@ -26,18 +28,18 @@ export default function UpdateRoom() {
       return roomAPI.detailRoom(nameId as string)
     }
   })
-  const roomDetailData = getRoomDetailQuery.data?.data as TypeRoom
+  const roomDetailData = getRoomDetailQuery.data?.data?.data
 
   const updateRoomMutation = useMutation({
-    mutationFn: ({ id, body }: { id: string; body: TypeRoom }) => {
-      return roomAPI.updateRoom({ id, body }) // Gọi hàm updateBranch với đối tượng chứa id và body
+    mutationFn: ({ body }: { body: TypeRoom }) => {
+      return roomAPI.updateRoom({ body }) // Gọi hàm updateBranch với đối tượng chứa id và body
     }
   })
 
   const { handleSubmit, register, reset } = useForm<FormData>()
 
   const onSubmit = handleSubmit((data) => {
-    const body = {
+    const body: TypeRoom = {
       branch_id: data.branch_id, // ID của chi nhánh mà phòng thuộc về
       price_per_night: data.price_per_night, // Giá mỗi đêm
       price_per_month: data.price_per_month, // Giá mỗi tháng
@@ -53,11 +55,11 @@ export default function UpdateRoom() {
       max_adults: data.max_adults, // Số người lớn tối đa
       max_children: data.max_children, // Số trẻ em tối đa
       max_babies: data.max_babies, // Số trẻ sơ sinh tối đa
-      images: roomDetailData.images // Giả sử bạn không muốn thay đổi hình ảnh
+      images: roomDetailData?.images || undefined // Giả sử bạn không muốn thay đổi hình ảnh
     }
 
     updateRoomMutation.mutate(
-      { id: nameId as string, body },
+      { body },
       {
         onSuccess: () => {
           toast.success("Cập nhật chi nhánh thành công")
@@ -78,20 +80,20 @@ export default function UpdateRoom() {
   const handleClear = () => {
     reset({
       branch_id: "", // ID của chi nhánh mà phòng thuộc về
-      price_per_night: null, // Giá mỗi đêm
-      price_per_month: null, // Giá mỗi tháng
+      price_per_night: 0, // Giá mỗi đêm
+      price_per_month: 0, // Giá mỗi tháng
       name: "", // Tên phòng
       description: [], // Mô tả phòng (mảng các chuỗi)
       comforts: [], // Danh sách các tiện nghi (mảng các chuỗi)
       bed_type: "", // Loại giường
-      booking_turn: null, // Số lần đặt phòng
-      stock: null, // Số lượng phòng còn lại
-      acreage: null, // Diện tích phòng (m2)
+      booking_turn: 0, // Số lần đặt phòng
+      stock: 0, // Số lượng phòng còn lại
+      acreage: 0, // Diện tích phòng (m2)
       available_from: "", // Thời gian có sẵn (ISO 8601)
       available_to: "", // Thời gian không còn sẵn (ISO 8601)
-      max_adults: null, // Số người lớn tối đa
-      max_children: null, // Số trẻ em tối đa
-      max_babies: null // Số trẻ sơ sinh tối đa
+      max_adults: 0, // Số người lớn tối đa
+      max_children: 0, // Số trẻ em tối đa
+      max_babies: 0 // Số trẻ sơ sinh tối đa
     })
   }
 
@@ -133,9 +135,9 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  defaultValue={roomDetailData.id}
+                  defaultValue={roomDetailData?.room_id}
                   readOnly
-                  {...register("id")}
+                  {...register("branch_id")}
                 />
               </div>
 
@@ -145,7 +147,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.branch_id}
+                  defaultValue={roomDetailData?.branch_id}
                   {...register("branch_id")}
                 />
               </div>
@@ -156,7 +158,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.name}
+                  defaultValue={roomDetailData?.name}
                   {...register("name")}
                 />
               </div>
@@ -169,7 +171,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.price_per_night as number}
+                  defaultValue={roomDetailData?.price_per_night}
                   {...register("price_per_night")}
                 />
               </div>
@@ -180,7 +182,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.price_per_month as number}
+                  defaultValue={roomDetailData?.price_per_month}
                   {...register("price_per_month")}
                 />
               </div>
@@ -191,7 +193,7 @@ export default function UpdateRoom() {
               <textarea
                 required
                 className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none resize-none"
-                defaultValue={roomDetailData.description}
+                defaultValue={roomDetailData?.description.join(", ")}
                 rows={10} // Cố định 10 dòng
                 {...register("description")}
               />
@@ -204,7 +206,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.bed_type}
+                  defaultValue={roomDetailData?.bed_type}
                   {...register("bed_type")}
                 />
               </div>
@@ -214,7 +216,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.comforts}
+                  defaultValue={roomDetailData?.comforts.join(", ")}
                   {...register("comforts")}
                 />
               </div>
@@ -224,7 +226,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.acreage as number}
+                  defaultValue={roomDetailData?.acreage}
                   {...register("acreage")}
                 />
               </div>
@@ -237,7 +239,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.booking_turn as number}
+                  defaultValue={roomDetailData?.booking_turn}
                   {...register("booking_turn")}
                 />
               </div>
@@ -247,7 +249,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.stock as number}
+                  defaultValue={roomDetailData?.stock}
                   {...register("stock")}
                 />
               </div>
@@ -260,7 +262,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.available_from}
+                  defaultValue={format(roomDetailData?.available_from || new Date(), "dd/MM/yyyy")}
                   {...register("available_from")}
                 />
               </div>
@@ -271,7 +273,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.available_to}
+                  defaultValue={format(roomDetailData?.available_to || new Date(), "dd/MM/yyyy")}
                   {...register("available_to")}
                 />
               </div>
@@ -284,7 +286,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.max_adults as number}
+                  defaultValue={roomDetailData?.max_adults}
                   {...register("max_adults")}
                 />
               </div>
@@ -295,7 +297,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.max_children as number}
+                  defaultValue={roomDetailData?.max_children}
                   {...register("max_children")}
                 />
               </div>
@@ -306,7 +308,7 @@ export default function UpdateRoom() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={roomDetailData.max_babies as number}
+                  defaultValue={roomDetailData?.max_babies}
                   {...register("max_babies")}
                 />
               </div>
@@ -315,9 +317,9 @@ export default function UpdateRoom() {
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700">Hình Ảnh:</label>
               <div className="flex items-center gap-2">
-                {roomDetailData.images.map((img) => (
+                {roomDetailData?.images?.map((img) => (
                   <div key={img}>
-                    <img src={img} />
+                    <img src={getMedia(img)} />
                   </div>
                 ))}
               </div>

@@ -6,6 +6,7 @@ import { path } from "src/constants/path"
 import { TypeBranch } from "src/types/branches.type"
 import { toast } from "react-toastify"
 import { Helmet } from "react-helmet-async"
+import getMedia from "src/utils/getMedia"
 
 type FormData = TypeBranch
 
@@ -26,18 +27,20 @@ export default function UpdateBranch() {
       return branchAPI.detailBranch(nameId as string)
     }
   })
-  const branchDetailData = getBranchDetailQuery.data?.data as TypeBranch
+  const branchDetailData = getBranchDetailQuery.data?.data?.data
+  console.log(branchDetailData)
 
   const updateBranchMutation = useMutation({
-    mutationFn: ({ id, body }: { id: string; body: TypeBranch }) => {
-      return branchAPI.updateBranch({ id, body }) // Gọi hàm updateBranch với đối tượng chứa id và body
+    mutationFn: ({ body }: { body: TypeBranch }) => {
+      return branchAPI.updateBranch({ body })
     }
   })
 
   const { handleSubmit, register, reset } = useForm<FormData>()
 
   const onSubmit = handleSubmit((data) => {
-    const body = {
+    const body: TypeBranch = {
+      branch_id: nameId,
       name: data.name,
       trademark: data.trademark,
       description: data.description,
@@ -46,16 +49,16 @@ export default function UpdateBranch() {
       ward: data.ward,
       location: data.location,
       best_comforts: data.best_comforts,
-      images: branchDetailData.images // Giả sử bạn không muốn thay đổi hình ảnh
+      images: data.images || undefined
     }
 
     updateBranchMutation.mutate(
-      { id: nameId as string, body },
+      { body },
       {
         onSuccess: () => {
           toast.success("Cập nhật chi nhánh thành công")
           navigate(path.listBranch)
-          queryClient.invalidateQueries({ queryKey: ["branchList", state] }) // chỉ trang tương ứng với currentPage (state) đó được làm mới.
+          queryClient.invalidateQueries({ queryKey: ["branchList", state] })
         },
         onError: (error) => {
           toast.error(error.message)
@@ -77,7 +80,7 @@ export default function UpdateBranch() {
       ward: "",
       location: "",
       best_comforts: [],
-      description: [],
+      description: []
     })
   }
 
@@ -120,8 +123,8 @@ export default function UpdateBranch() {
                     type="text"
                     required
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                    {...register("id")}
-                    defaultValue={branchDetailData.id}
+                    {...register("branch_id")}
+                    defaultValue={branchDetailData?.branch_id}
                     readOnly
                   />
                 </div>
@@ -132,7 +135,7 @@ export default function UpdateBranch() {
                     type="text"
                     required
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                    defaultValue={branchDetailData.name}
+                    defaultValue={branchDetailData?.name}
                     {...register("name")}
                   />
                 </div>
@@ -144,7 +147,7 @@ export default function UpdateBranch() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={branchDetailData.trademark}
+                  defaultValue={branchDetailData?.trademark}
                   {...register("trademark")}
                 />
               </div>
@@ -154,7 +157,7 @@ export default function UpdateBranch() {
                 <textarea
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm resize-none"
-                  defaultValue={branchDetailData.description}
+                  defaultValue={branchDetailData?.description}
                   rows={10} // Bạn có thể thay đổi số dòng theo ý muốn
                   {...register("description")}
                 />
@@ -166,7 +169,7 @@ export default function UpdateBranch() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={branchDetailData.url}
+                  defaultValue={branchDetailData?.url}
                   {...register("url")}
                 />
               </div>
@@ -178,7 +181,7 @@ export default function UpdateBranch() {
                     type="text"
                     required
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                    defaultValue={branchDetailData.province}
+                    defaultValue={branchDetailData?.province}
                     {...register("province")}
                   />
                 </div>
@@ -189,7 +192,7 @@ export default function UpdateBranch() {
                     type="text"
                     required
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                    defaultValue={branchDetailData.ward}
+                    defaultValue={branchDetailData?.ward}
                     {...register("ward")}
                   />
                 </div>
@@ -200,7 +203,7 @@ export default function UpdateBranch() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={branchDetailData.location}
+                  defaultValue={branchDetailData?.location}
                   {...register("location")}
                 />
               </div>
@@ -211,7 +214,7 @@ export default function UpdateBranch() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={branchDetailData.best_comforts}
+                  defaultValue={branchDetailData?.best_comforts.join(", ")}
                   {...register("best_comforts")}
                 />
               </div>
@@ -219,9 +222,9 @@ export default function UpdateBranch() {
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700">Hình Ảnh:</label>
                 <div className="flex items-center gap-2">
-                  {branchDetailData.images.map((img) => (
+                  {branchDetailData?.images?.map((img) => (
                     <div key={img}>
-                      <img src={img} />
+                      <img src={getMedia(img)} />
                     </div>
                   ))}
                 </div>

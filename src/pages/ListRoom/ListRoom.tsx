@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom"
 import { roomAPI } from "src/apis/room.api"
 import Pagination from "src/components/Pagination"
 import { path } from "src/constants/path"
-import { TypeRoom } from "src/types/branches.type"
 
 export default function ListRoom() {
   const [currentPage, setCurrentPage] = useState(1)
@@ -25,9 +24,9 @@ export default function ListRoom() {
     staleTime: 5 * 60 * 1000 // dưới 5 phút không refetch api
   })
 
-  const listRoom = (getBranchListQuery.data?.data as TypeRoom[]) || []
+  const listRoom = getBranchListQuery.data?.data?.data || []
 
-  const totalItem = 5
+  const totalItem = 10
   const startIndex = (currentPage - 1) * totalItem
   const endIndex = startIndex + totalItem
   const currentList = listRoom.slice(startIndex, endIndex)
@@ -50,6 +49,10 @@ export default function ListRoom() {
 
   const handleNavigateDetail = (id: string) => {
     navigate(`${path.listRoom}/detail/${id}`)
+  }
+
+  const handleNavigateDelete = (id: string) => {
+    roomAPI.deleteRoom(id)
   }
 
   return (
@@ -127,10 +130,12 @@ export default function ListRoom() {
             {!getBranchListQuery.isFetching &&
               currentList.map((item) => (
                 <div
-                  key={item.id}
+                  key={item.room_id}
                   className="border-b border-b-gray-300 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
                 >
-                  <div className="py-2 px-4 border-r border-r-gray-300 text-center text-sm col-span-1">{item.id}</div>
+                  <div className="py-2 px-4 border-r border-r-gray-300 text-center text-sm col-span-1">
+                    {item.room_id}
+                  </div>
                   <div className="py-2 px-4 border-r border-r-gray-300 text-center text-sm col-span-1 truncate">
                     {item.name}
                   </div>
@@ -145,7 +150,7 @@ export default function ListRoom() {
                   </div>
                   <div className="py-2 px-4 text-center col-span-1">
                     <div className="flex items-center justify-center gap-2 ">
-                      <button onClick={() => handleNavigateUpdate(item.id as string)}>
+                      <button onClick={() => handleNavigateUpdate(item.room_id as string)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -161,7 +166,7 @@ export default function ListRoom() {
                           />
                         </svg>
                       </button>
-                      <button onClick={() => handleNavigateDetail(item.id as string)}>
+                      <button onClick={() => handleNavigateDetail(item.room_id as string)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -177,7 +182,12 @@ export default function ListRoom() {
                           />
                         </svg>
                       </button>
-                      <button>
+                      <button
+                        onClick={() => {
+                          handleNavigateDelete(item.room_id as string)
+                          location.reload()
+                        }}
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

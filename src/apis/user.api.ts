@@ -3,15 +3,15 @@ import http from "src/utils/http"
 
 export const userAPI = {
   getUsers: (signal?: AbortSignal) => {
-    return http.get<TypeUser[]>("users", { signal })
+    return http.get<{ data: TypeUser[] }>("users ", { signal })
   },
   detailUser: (id: string) => {
-    return http.get<TypeUser>(`users/${id}`)
+    return http.get<{ data: TypeUser }>(`users/${id}`)
   },
-  updateUser: ({ id, body }: { id: string; body: TypeUser }) => {
-    return http.put<TypeUser>(`users/${id}`, body)
+  updateUser: ({ body }: { body: TypeUser }) => {
+    return http.put<{ data: TypeUser }>(`users`, body)
   },
   deleteUser: (id: string) => {
-    return http.delete<TypeUser>(`users/${id}`)
+    return http.delete<{ data: TypeUser }>(`users/${id}`)
   }
 }

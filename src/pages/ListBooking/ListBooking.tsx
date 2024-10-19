@@ -6,7 +6,6 @@ import { toast } from "react-toastify"
 import { bookingAPI } from "src/apis/booking.api"
 import Pagination from "src/components/Pagination"
 import { path } from "src/constants/path"
-import { TypeBooking } from "src/types/branches.type"
 
 export default function ListBooking() {
   const [currentPage, setCurrentPage] = useState(1)
@@ -26,7 +25,7 @@ export default function ListBooking() {
     staleTime: 5 * 60 * 1000 // dưới 5 phút không refetch api
   })
 
-  const listBooking = (getBookingListQuery.data?.data as TypeBooking[]) || []
+  const listBooking = getBookingListQuery.data?.data?.data || []
 
   const totalItem = 5
   const startIndex = (currentPage - 1) * totalItem
@@ -118,8 +117,11 @@ export default function ListBooking() {
           <div className="w-full">
             {!getBookingListQuery.isFetching &&
               currentList.map((item) => (
-                <div key={item.id} className="border-b border-b-gray-300 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-                  <td className="border-r border-r-gray-300 py-2 px-4 text-center text-sm col-span-1">{item.id}</td>
+                <div
+                  key={item.booking_id}
+                  className="border-b border-b-gray-300 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
+                >
+                  <td className="border-r border-r-gray-300 py-2 px-4 text-center text-sm col-span-1">{item.booking_id}</td>
                   <td className="border-r border-r-gray-300 py-2 px-4 text-center text-sm col-span-1 truncate">
                     {item.fullname_order}
                   </td>
@@ -134,7 +136,7 @@ export default function ListBooking() {
                   </td>
                   <td className="py-2 px-4 text-center lg:col-span-1">
                     <div className="flex items-center justify-center gap-2 ">
-                      <button onClick={() => handleUpdateBooking(item.id as string)}>
+                      <button onClick={() => handleUpdateBooking(item.booking_id as string)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -150,7 +152,7 @@ export default function ListBooking() {
                           />
                         </svg>
                       </button>
-                      <Link to={`${path.listBooking}/detail/${item.id}`}>
+                      <Link to={`${path.listBooking}/detail/${item.booking_id}`}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -166,7 +168,7 @@ export default function ListBooking() {
                           />
                         </svg>
                       </Link>
-                      <button onClick={() => handleDeleteUser(item.id as string)}>
+                      <button onClick={() => handleDeleteUser(item.booking_id as string)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

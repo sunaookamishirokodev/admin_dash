@@ -26,11 +26,11 @@ export default function UpdateUser() {
       return userAPI.detailUser(nameId as string)
     }
   })
-  const userDetailData = getUserDetailQuery.data?.data as TypeUser
+  const userDetailData = getUserDetailQuery.data?.data?.data
 
   const updateUserMutation = useMutation({
-    mutationFn: ({ id, body }: { id: string; body: TypeUser }) => {
-      return userAPI.updateUser({ id, body }) // Gọi hàm updateBranch với đối tượng chứa id và body
+    mutationFn: ({ body }: { id: string; body: TypeUser }) => {
+      return userAPI.updateUser({ body }) // Gọi hàm updateBranch với đối tượng chứa id và body
     }
   })
 
@@ -75,9 +75,9 @@ export default function UpdateUser() {
       phone: "",
       fullname: "",
       nationality: "",
-      last_booking: "",
-      nights: null,
-      books: null,
+      last_booking: null,
+      nights: 0,
+      books: 0,
       create_at: "",
       update_at: "",
       roles: []
@@ -122,8 +122,8 @@ export default function UpdateUser() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  {...register("id")}
-                  defaultValue={userDetailData.id}
+                  {...register("user_id")}
+                  defaultValue={userDetailData?.user_id}
                   readOnly
                 />
               </div>
@@ -134,7 +134,7 @@ export default function UpdateUser() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={userDetailData.fullname}
+                  defaultValue={userDetailData?.fullname}
                   {...register("fullname")}
                 />
               </div>
@@ -146,7 +146,7 @@ export default function UpdateUser() {
                 type="text"
                 required
                 className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                defaultValue={userDetailData.phone}
+                defaultValue={userDetailData?.phone}
                 {...register("phone")}
               />
             </div>
@@ -157,7 +157,7 @@ export default function UpdateUser() {
                 type="text"
                 required
                 className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                defaultValue={userDetailData.email}
+                defaultValue={userDetailData?.email}
                 {...register("email")}
               />
             </div>
@@ -168,7 +168,7 @@ export default function UpdateUser() {
                 type="text"
                 required
                 className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                defaultValue={userDetailData.nationality}
+                defaultValue={userDetailData?.nationality}
                 {...register("nationality")}
               />
             </div>
@@ -180,7 +180,7 @@ export default function UpdateUser() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={userDetailData.last_booking}
+                  defaultValue={userDetailData?.last_booking || "Không có"}
                   {...register("last_booking")}
                 />
               </div>
@@ -191,7 +191,7 @@ export default function UpdateUser() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={userDetailData.nights as number}
+                  defaultValue={userDetailData?.nights}
                   {...register("nights")}
                 />
               </div>
@@ -204,7 +204,7 @@ export default function UpdateUser() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={userDetailData.books as number}
+                  defaultValue={userDetailData?.books}
                   {...register("books")}
                 />
               </div>
@@ -215,7 +215,7 @@ export default function UpdateUser() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={userDetailData.roles}
+                  defaultValue={userDetailData?.roles.join("\n")}
                   {...register("roles")}
                 />
               </div>

@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query"
 import { Helmet } from "react-helmet-async"
 import { useNavigate, useParams } from "react-router-dom"
 import { userAPI } from "src/apis/user.api"
-import { TypeUser } from "src/types/branches.type"
 
 export default function DetailUser() {
   const { nameId } = useParams()
@@ -17,7 +16,7 @@ export default function DetailUser() {
       return userAPI.detailUser(nameId as string)
     }
   })
-  const userDetailData = getUserDetailQuery.data?.data as TypeUser
+  const userDetailData = getUserDetailQuery.data?.data?.data
 
   const navigate = useNavigate()
 
@@ -63,7 +62,7 @@ export default function DetailUser() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  defaultValue={userDetailData.id}
+                  defaultValue={userDetailData?.user_id}
                   readOnly
                 />
               </div>
@@ -74,7 +73,7 @@ export default function DetailUser() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  defaultValue={userDetailData.fullname}
+                  defaultValue={userDetailData?.fullname}
                   readOnly
                 />
               </div>
@@ -86,7 +85,7 @@ export default function DetailUser() {
                 type="text"
                 required
                 className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                defaultValue={userDetailData.phone}
+                defaultValue={userDetailData?.phone}
                 readOnly
               />
             </div>
@@ -97,7 +96,7 @@ export default function DetailUser() {
                 type="text"
                 required
                 className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                defaultValue={userDetailData.email}
+                defaultValue={userDetailData?.email}
                 readOnly
               />
             </div>
@@ -108,7 +107,7 @@ export default function DetailUser() {
                 type="text"
                 required
                 className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                defaultValue={userDetailData.nationality}
+                defaultValue={userDetailData?.nationality}
                 readOnly
               />
             </div>
@@ -120,7 +119,7 @@ export default function DetailUser() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  defaultValue={userDetailData.last_booking}
+                  defaultValue={userDetailData?.last_booking || "Không có"}
                   readOnly
                 />
               </div>
@@ -131,7 +130,7 @@ export default function DetailUser() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  defaultValue={userDetailData.nights as number}
+                  defaultValue={userDetailData?.nights}
                   readOnly
                 />
               </div>
@@ -143,7 +142,7 @@ export default function DetailUser() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  defaultValue={userDetailData.books as number}
+                  defaultValue={userDetailData?.books}
                   readOnly
                 />
               </div>
@@ -154,7 +153,7 @@ export default function DetailUser() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  defaultValue={userDetailData.roles}
+                  defaultValue={userDetailData?.roles.join("\n")}
                   readOnly
                 />
               </div>

@@ -93,16 +93,6 @@ export default function CreateRoom() {
         <div>
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-8">
             <div className="mb-4 w-full md:w-[200px]">
-              <label className="block text-sm font-medium text-gray-700">Mã phòng:</label>
-              <input
-                type="text"
-                required
-                className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                {...register("id")}
-              />
-            </div>
-
-            <div className="mb-4 w-full md:w-[200px]">
               <label className="block text-sm font-medium text-gray-700">Mã chi nhánh:</label>
               <input
                 type="text"

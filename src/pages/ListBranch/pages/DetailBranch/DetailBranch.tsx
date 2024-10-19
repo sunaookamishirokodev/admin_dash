@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async"
 import { useNavigate, useParams } from "react-router-dom"
 import { branchAPI } from "src/apis/branch.api"
 import { TypeBranch } from "src/types/branches.type"
+import getMedia from "src/utils/getMedia"
 
 export default function DetailBranch() {
   const { nameId } = useParams()
@@ -17,7 +18,7 @@ export default function DetailBranch() {
       return branchAPI.detailBranch(nameId as string)
     }
   })
-  const branchDetailData = getBranchDetailQuery.data?.data as TypeBranch
+  const branchDetailData = getBranchDetailQuery.data?.data?.data as TypeBranch
 
   const navigate = useNavigate()
 
@@ -63,7 +64,7 @@ export default function DetailBranch() {
                   type="text"
                   required
                   className="mt-1 block w-[200px] p-2 border border-gray-300 rounded text-sm outline-none"
-                  defaultValue={branchDetailData.id}
+                  defaultValue={branchDetailData.branch_id}
                   readOnly
                 />
               </div>
@@ -161,9 +162,9 @@ export default function DetailBranch() {
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700">Hình Ảnh:</label>
               <div className="flex items-center gap-2">
-                {branchDetailData.images.map((img) => (
+                {branchDetailData.images?.map((img) => (
                   <div key={img}>
-                    <img src={img} />
+                    <img src={getMedia(img)} />
                   </div>
                 ))}
               </div>

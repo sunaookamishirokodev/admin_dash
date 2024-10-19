@@ -1,11 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { format } from "date-fns"
 import { Helmet } from "react-helmet-async"
 import { useForm } from "react-hook-form"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
 import { bookingAPI } from "src/apis/booking.api"
 import { path } from "src/constants/path"
-import { TypeBooking } from "src/types/branches.type"
+import { BookingType, Range, TypeBooking } from "src/types/branches.type"
 
 type FormData = TypeBooking
 
@@ -26,11 +27,11 @@ export default function UpdateBooking() {
       return bookingAPI.detailBooking(nameId as string)
     }
   })
-  const bookingDetailData = getBookingDetailQuery.data?.data as TypeBooking
+  const bookingDetailData = getBookingDetailQuery.data?.data?.data
 
   const updateUserMutation = useMutation({
-    mutationFn: ({ id, body }: { id: string; body: TypeBooking }) => {
-      return bookingAPI.updateBooking({ id, body }) // Gọi hàm updateBranch với đối tượng chứa id và body
+    mutationFn: ({ body }: { body: TypeBooking }) => {
+      return bookingAPI.updateBooking({ body }) // Gọi hàm updateBranch với đối tượng chứa id và body
     }
   })
 
@@ -56,7 +57,7 @@ export default function UpdateBooking() {
     }
 
     updateUserMutation.mutate(
-      { id: nameId as string, body },
+      { body },
       {
         onSuccess: () => {
           toast.success("Cập nhật booking thành công")
@@ -76,19 +77,16 @@ export default function UpdateBooking() {
 
   const handleClear = () => {
     reset({
-      adults: null,
-      children: null,
-      babies: null,
+      adults: 0,
+      children: 0,
+      babies: 0,
       checkin: "",
       checkout: "",
       fullname_order: "",
       email_order: "",
       phone_order: "",
-      fullname_customer: "",
-      email_customer: "",
-      phone_customer: "",
-      type: "",
-      range: "",
+      type: BookingType.my_set,
+      range: Range.nights,
       room_id: "",
       note: ""
     })
@@ -132,8 +130,8 @@ export default function UpdateBooking() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  {...register("id")}
-                  defaultValue={bookingDetailData.id}
+                  {...register("booking_id")}
+                  defaultValue={bookingDetailData?.booking_id}
                   readOnly
                 />
               </div>
@@ -143,7 +141,7 @@ export default function UpdateBooking() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={bookingDetailData.room_id}
+                  defaultValue={bookingDetailData?.room_id}
                   {...register("room_id")}
                 />
               </div>
@@ -154,7 +152,7 @@ export default function UpdateBooking() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={bookingDetailData.type}
+                  defaultValue={bookingDetailData?.type}
                   {...register("type")}
                 />
               </div>
@@ -169,7 +167,7 @@ export default function UpdateBooking() {
                     type="text"
                     required
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                    defaultValue={bookingDetailData.fullname_order}
+                    defaultValue={bookingDetailData?.fullname_order}
                     {...register("fullname_order")}
                   />
                 </div>
@@ -180,7 +178,7 @@ export default function UpdateBooking() {
                     type="text"
                     required
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                    defaultValue={bookingDetailData.email_order}
+                    defaultValue={bookingDetailData?.email_order}
                     {...register("email_order")}
                   />
                 </div>
@@ -191,7 +189,7 @@ export default function UpdateBooking() {
                     type="text"
                     required
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                    defaultValue={bookingDetailData.phone_order}
+                    defaultValue={bookingDetailData?.phone_order}
                     {...register("phone_order")}
                   />
                 </div>
@@ -207,7 +205,7 @@ export default function UpdateBooking() {
                     type="text"
                     required
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                    defaultValue={bookingDetailData.fullname_customer}
+                    defaultValue={bookingDetailData?.fullname_customer}
                     {...register("fullname_customer")}
                   />
                 </div>
@@ -218,7 +216,7 @@ export default function UpdateBooking() {
                     type="text"
                     required
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                    defaultValue={bookingDetailData.email_customer}
+                    defaultValue={bookingDetailData?.email_customer}
                     {...register("email_customer")}
                   />
                 </div>
@@ -229,7 +227,7 @@ export default function UpdateBooking() {
                     type="text"
                     required
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                    defaultValue={bookingDetailData.phone_customer}
+                    defaultValue={bookingDetailData?.phone_customer}
                     {...register("phone_customer")}
                   />
                 </div>
@@ -243,7 +241,7 @@ export default function UpdateBooking() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={bookingDetailData.checkin}
+                  defaultValue={format(bookingDetailData?.checkin || new Date(), "dd/MM/yyyy")}
                   {...register("checkin")}
                 />
               </div>
@@ -254,7 +252,7 @@ export default function UpdateBooking() {
                   type="text"
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                  defaultValue={bookingDetailData.checkout}
+                  defaultValue={format(bookingDetailData?.checkout || new Date(), "dd/MM/yyyy")}
                   {...register("checkout")}
                 />
               </div>
@@ -269,7 +267,7 @@ export default function UpdateBooking() {
                     type="text"
                     required
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                    defaultValue={bookingDetailData.adults as number}
+                    defaultValue={bookingDetailData?.adults}
                     {...register("adults")}
                   />
                 </div>
@@ -280,7 +278,7 @@ export default function UpdateBooking() {
                     type="text"
                     required
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                    defaultValue={bookingDetailData.children as number}
+                    defaultValue={bookingDetailData?.children}
                     {...register("children")}
                   />
                 </div>
@@ -291,7 +289,7 @@ export default function UpdateBooking() {
                     type="text"
                     required
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                    defaultValue={bookingDetailData.babies as number}
+                    defaultValue={bookingDetailData?.babies}
                     {...register("babies")}
                   />
                 </div>
@@ -304,7 +302,7 @@ export default function UpdateBooking() {
                 type="text"
                 required
                 className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                defaultValue={bookingDetailData.note}
+                defaultValue={bookingDetailData?.note}
                 {...register("note")}
               />
             </div>
@@ -313,7 +311,7 @@ export default function UpdateBooking() {
               <label className="block text-sm font-medium text-gray-700">Phạm vi đặt phòng:</label>
               <select
                 className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                defaultValue={bookingDetailData.range}
+                defaultValue={bookingDetailData?.range}
                 {...register("range")}
               >
                 <option value="">Chọn</option>

@@ -3,15 +3,18 @@ import http from "src/utils/http"
 
 export const branchAPI = {
   getBranchs: (signal?: AbortSignal) => {
-    return http.get<TypeBranch[]>("branches", { signal })
+    return http.get<{ data: TypeBranch[] }>("branch/all", { signal })
   },
   createBranch: (body: TypeBranch) => {
-    return http.post<TypeBranch>("branches", body)
+    return http.postForm<{ data: TypeBranch }>("branch", body)
   },
   detailBranch: (id: string) => {
-    return http.get<TypeBranch>(`branches/${id}`)
+    return http.get<{ data: TypeBranch }>(`branch/${id}`)
   },
-  updateBranch: ({ id, body }: { id: string; body: TypeBranch }) => {
-    return http.put<TypeBranch>(`branches/${id}`, body)
+  updateBranch: ({ body }: { body: TypeBranch }) => {
+    return http.putForm<{ data: TypeBranch }>(`branch`, body)
+  },
+  deleteBranch: (id: string) => {
+    return http.delete<{ data: TypeBranch }>(`branch/${id}`)
   }
 }

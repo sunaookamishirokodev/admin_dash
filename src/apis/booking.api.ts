@@ -3,15 +3,15 @@ import http from "src/utils/http"
 
 export const bookingAPI = {
   getBookings: (signal?: AbortSignal) => {
-    return http.get<TypeBooking[]>("bookings", { signal })
+    return http.get<{ data: TypeBooking[] }>("booking", { signal })
   },
   detailBooking: (id: string) => {
-    return http.get<TypeBooking>(`bookings/${id}`)
+    return http.get<{ data: TypeBooking }>(`booking/${id}`)
   },
-  updateBooking: ({ id, body }: { id: string; body: TypeBooking }) => {
-    return http.put<TypeBooking>(`bookings/${id}`, body)
+  updateBooking: ({ body }: { body: TypeBooking }) => {
+    return http.put<{ data: TypeBooking }>(`booking`, body)
   },
   deleteBooking: (id: string) => {
-    return http.delete<TypeBooking>(`bookings/${id}`)
+    return http.delete<{ data: TypeBooking }>(`booking/${id}`)
   }
 }

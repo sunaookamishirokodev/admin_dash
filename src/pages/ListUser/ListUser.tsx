@@ -6,7 +6,6 @@ import { toast } from "react-toastify"
 import { userAPI } from "src/apis/user.api"
 import Pagination from "src/components/Pagination"
 import { path } from "src/constants/path"
-import { TypeUser } from "src/types/branches.type"
 
 export default function ListUser() {
   const [currentPage, setCurrentPage] = useState(1)
@@ -26,9 +25,9 @@ export default function ListUser() {
     staleTime: 5 * 60 * 1000 // dưới 5 phút không refetch api
   })
 
-  const listRoom = (getUserListQuery.data?.data as TypeUser[]) || []
+  const listRoom = getUserListQuery.data?.data?.data || []
 
-  const totalItem = 5
+  const totalItem = 10
   const startIndex = (currentPage - 1) * totalItem
   const endIndex = startIndex + totalItem
   const currentList = listRoom.slice(startIndex, endIndex)
@@ -118,8 +117,13 @@ export default function ListUser() {
           <div className="w-full">
             {!getUserListQuery.isFetching &&
               currentList.map((item) => (
-                <div key={item.id} className="border-b border-b-gray-300 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-                  <div className="border-r border-r-gray-300 py-2 px-4 text-center text-sm col-span-1">{item.id}</div>
+                <div
+                  key={item.user_id}
+                  className="border-b border-b-gray-300 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
+                >
+                  <div className="border-r border-r-gray-300 py-2 px-4 text-center text-sm col-span-1">
+                    {item.user_id}
+                  </div>
                   <div className="border-r border-r-gray-300 py-2 px-4 text-center text-sm col-span-1 truncate">
                     {item.fullname}
                   </div>
@@ -130,11 +134,11 @@ export default function ListUser() {
                     {item.nationality}
                   </div>
                   <div className="border-r border-r-gray-300 py-2 px-4 text-center text-sm hidden col-span-0 md:block md:col-span-1">
-                    {item.roles}
+                    {item.roles.join("\n")}
                   </div>
                   <div className="py-2 px-4 text-center lg:col-span-1">
                     <div className="flex items-center justify-center gap-2 ">
-                      <button onClick={() => handleUpdateUser(item.id as string)}>
+                      <button onClick={() => handleUpdateUser(item.user_id as string)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -150,7 +154,7 @@ export default function ListUser() {
                           />
                         </svg>
                       </button>
-                      <Link to={`${path.listUser}/detail/${item.id}`}>
+                      <Link to={`${path.listUser}/detail/${item.user_id}`}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -166,7 +170,7 @@ export default function ListUser() {
                           />
                         </svg>
                       </Link>
-                      <button onClick={() => handleDeleteUser(item.id as string)}>
+                      <button onClick={() => handleDeleteUser(item.user_id as string)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

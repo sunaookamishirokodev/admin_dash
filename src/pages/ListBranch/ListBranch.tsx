@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom"
 import { branchAPI } from "src/apis/branch.api"
 import Pagination from "src/components/Pagination"
 import { path } from "src/constants/path"
-import { TypeBranch } from "src/types/branches.type"
 
 export default function ListBranch() {
   const [currentPage, setCurrentPage] = useState(1)
@@ -25,9 +24,9 @@ export default function ListBranch() {
     staleTime: 5 * 60 * 1000 // dưới 5 phút không refetch api
   })
 
-  const listBranch = (getBranchListQuery.data?.data as TypeBranch[]) || []
+  const listBranch = getBranchListQuery.data?.data?.data || []
 
-  const totalItem = 5
+  const totalItem = 10
   const startIndex = (currentPage - 1) * totalItem
   const endIndex = startIndex + totalItem
   const currentList = listBranch.slice(startIndex, endIndex)
@@ -50,6 +49,10 @@ export default function ListBranch() {
 
   const handleNavigateDetail = (id: string) => {
     navigate(`${path.listBranch}/detail/${id}`)
+  }
+
+  const handleNavigateDelete = (id: string) => {
+    return branchAPI.deleteBranch(id)
   }
 
   return (
@@ -126,9 +129,9 @@ export default function ListBranch() {
           <div className="w-full">
             {!getBranchListQuery.isFetching &&
               currentList.map((item) => (
-                <div key={item.id} className="border-b border-b-gray-300 grid grid-cols-6">
+                <div key={item.branch_id} className="border-b border-b-gray-300 grid grid-cols-6">
                   <div className="py-2 px-4 border-r border-r-gray-300 text-center text-sm col-span-2 md:col-span-1 lg:col-span-1">
-                    {item.id}
+                    {item.branch_id}
                   </div>
                   <div className="py-2 px-4 border-r border-r-gray-300 text-center text-sm col-span-2 md:col-span-2 lg:col-span-1 truncate">
                     {item.name}
@@ -145,7 +148,7 @@ export default function ListBranch() {
 
                   <div className="py-2 px-4 text-center col-span-2 md:col-span-1">
                     <div className="flex items-center justify-center gap-2 ">
-                      <button onClick={() => handleNavigateUpdate(item.id as string)}>
+                      <button onClick={() => handleNavigateUpdate(item.url)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -161,7 +164,7 @@ export default function ListBranch() {
                           />
                         </svg>
                       </button>
-                      <button onClick={() => handleNavigateDetail(item.id as string)}>
+                      <button onClick={() => handleNavigateDetail(item.url)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -177,7 +180,12 @@ export default function ListBranch() {
                           />
                         </svg>
                       </button>
-                      <button>
+                      <button
+                        onClick={() => {
+                          handleNavigateDelete(item.branch_id as string)
+                          location.reload()
+                        }}
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
