@@ -1,0 +1,434 @@
+{
+  "branches": [
+    {
+      "name": "d",
+      "trademark": "d",
+      "description": "d",
+      "url": "d",
+      "province": "d",
+      "ward": "d",
+      "location": "d",
+      "best_comforts": "d",
+      "images": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZS1k5E44yjGLHBkM_Ul-SKfvXryNpFttaMQ&s"
+      ],
+      "id": "0"
+    },
+    {
+      "id": "1",
+      "name": "Thảo Điền Village",
+      "trademark": "luxury_gardens_village",
+      "description": [
+        "Một nơi tuyệt vời để thư giãn với không gian xanh và hồ bơi ngoài trời. Phù hợp cho các gia đình và nhóm bạn.",
+        "Tận hưởng buổi chiều yên tĩnh bên tách trà tại Tea Garden hoặc rèn luyện sức khỏe tại phòng gym hiện đại."
+      ],
+      "url": "m-village-thao-dien",
+      "province": "ho_chi_minh",
+      "ward": "quan_2",
+      "best_comforts": [
+        "outdoor_pool",
+        "luxury_spa"
+      ],
+      "location": "25 Nguyễn Văn Hưởng, P. Thảo Điền, Q.2, HCM",
+      "images": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZS1k5E44yjGLHBkM_Ul-SKfvXryNpFttaMQ&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZS1k5E44yjGLHBkM_Ul-SKfvXryNpFttaMQ&s"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Phú Mỹ Hưng Plaza",
+      "trademark": "modern_hotel_saigon",
+      "description": [
+        "Nằm trong khu đô thị Phú Mỹ Hưng sầm uất, khách sạn này mang đến sự tiện nghi và hiện đại cho các khách công tác và khách du lịch.",
+        "Phòng nghỉ trang nhã với trang thiết bị hiện đại, cùng nhà hàng phục vụ các món ăn đa dạng."
+      ],
+      "url": "phu-my-hung-plaza",
+      "province": "ho_chi_minh",
+      "ward": "quan_7",
+      "best_comforts": [
+        "business_center",
+        "conference_room"
+      ],
+      "location": "99 Nguyễn Lương Bằng, P. Tân Phú, Q.7, HCM",
+      "images": [
+        "media/1729148996104-phumyhung1.jpg.webp",
+        "media/1729148996105-phumyhung2.jpg.webp"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Đà Nẵng Beach Hotel",
+      "trademark": "seaside_resort",
+      "description": [
+        "Tọa lạc ngay bên bờ biển Đà Nẵng, khách sạn mang đến tầm nhìn tuyệt đẹp ra đại dương cùng với các dịch vụ nghỉ dưỡng cao cấp.",
+        "Hãy trải nghiệm cảm giác thư thái khi thức dậy với tiếng sóng biển ngay bên ngoài cửa sổ phòng bạn."
+      ],
+      "url": "da-nang-beach-hotel",
+      "province": "da_nang",
+      "ward": "son_tra",
+      "best_comforts": [
+        "beach_view",
+        "infinity_pool"
+      ],
+      "location": "88 Võ Nguyên Giáp, P. Mỹ Khê, Q. Sơn Trà, Đà Nẵng",
+      "images": [
+        "media/1729148996106-danang1.jpg.webp",
+        "media/1729148996107-danang2.jpg.webp",
+        "media/1729148996108-danang3.jpg.webp"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Nha Trang Sunlight Hotel",
+      "trademark": "coastal_hotel_chain",
+      "description": [
+        "Khách sạn ven biển Nha Trang mang đến sự tiện nghi cùng phong cách phục vụ chuyên nghiệp. Một điểm đến lý tưởng cho những ai yêu thích biển cả và các hoạt động ngoài trời.",
+        "Phòng nghỉ rộng rãi với ban công nhìn ra biển, cùng nhà hàng phục vụ ẩm thực Á-Âu."
+      ],
+      "url": "nha-trang-sunlight-hotel",
+      "province": "khanh_hoa",
+      "ward": "nha_trang",
+      "best_comforts": [
+        "seafood_restaurant",
+        "sun_deck"
+      ],
+      "location": "10 Trần Phú, P. Lộc Thọ, Nha Trang, Khánh Hòa",
+      "images": [
+        "media/1729148996109-nhatrang1.jpg.webp",
+        "media/1729148996110-nhatrang2.jpg.webp",
+        "media/1729148996111-nhatrang3.jpg.webp"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Hội An Ancient House",
+      "trademark": "heritage_villa",
+      "description": [
+        "Nằm giữa lòng Hội An cổ kính, khách sạn này mang đến sự kết hợp giữa nét đẹp văn hóa và sự thoải mái hiện đại.",
+        "Thư giãn với không gian yên bình và khám phá nét đẹp văn hóa của phố cổ Hội An."
+      ],
+      "url": "hoi-an-ancient-house",
+      "province": "quang_nam",
+      "ward": "hoi_an",
+      "best_comforts": [
+        "heritage_tour",
+        "traditional_spa"
+      ],
+      "location": "35 Trần Hưng Đạo, Hội An, Quảng Nam",
+      "images": [
+        "media/1729148996112-hoian1.jpg.webp",
+        "media/1729148996113-hoian2.jpg.webp",
+        "media/1729148996114-hoian3.jpg.webp"
+      ]
+    },
+    {
+      "name": "vung tau",
+      "trademark": "a",
+      "description": "a",
+      "url": "a",
+      "province": "a",
+      "ward": "a",
+      "location": "a",
+      "best_comforts": "a",
+      "images": [
+        "blob:http://localhost:3000/5358d5fc-38e3-4bf2-96a2-744d8bbce1b8"
+      ],
+      "id": "6"
+    },
+    {
+      "name": "minh thuan ne",
+      "trademark": "ga",
+      "description": "ga",
+      "url": "ag",
+      "province": "a",
+      "ward": "a",
+      "location": "a",
+      "best_comforts": "a",
+      "images": [
+        "blob:http://localhost:3000/f2cc506e-363e-47d0-88ad-eabf1896bebb"
+      ],
+      "id": "7"
+    },
+    {
+      "id": "8",
+      "name": "nn",
+      "trademark": "nn",
+      "description": "nn",
+      "url": "nnn",
+      "province": "n",
+      "ward": "n",
+      "location": "n",
+      "best_comforts": "n",
+      "images": [
+        "blob:http://localhost:3000/1e73c44e-d501-43f3-a235-3fb0b7983b3f"
+      ]
+    },
+    {
+      "name": "nha trang",
+      "trademark": "cc",
+      "description": "cc",
+      "url": "cc",
+      "province": "cc",
+      "ward": "ccc",
+      "location": "cc",
+      "best_comforts": "cc",
+      "images": [
+        "blob:http://localhost:3000/a6bc7875-4b7d-405f-bacd-905d65178263"
+      ],
+      "id": "10"
+    },
+    {
+      "id": "11",
+      "name": "aaa",
+      "trademark": "aa",
+      "description": "aa",
+      "url": "aaa",
+      "province": "aa",
+      "ward": "aaa",
+      "location": "aa",
+      "best_comforts": "aaa",
+      "images": [
+        "blob:http://localhost:3000/71ad85c1-7cc4-45ee-a3bd-8632714b4618"
+      ]
+    },
+    {
+      "id": "12",
+      "name": "thaun neee",
+      "trademark": "111",
+      "description": "1111",
+      "url": "1111",
+      "province": "111",
+      "ward": "1111",
+      "location": "111",
+      "best_comforts": "1111",
+      "images": [
+        "blob:http://localhost:3000/b52b6514-161b-49a6-ad2b-6bb42ced90e5",
+        "blob:http://localhost:3000/8677a4e3-f9bb-4363-8ef9-ee4033fc22ba"
+      ]
+    }
+  ],
+  "rooms": [
+    {
+      "branch_id": "d",
+      "price_per_night": "d",
+      "price_per_month": "d",
+      "name": "d",
+      "description": "d",
+      "comforts": "d",
+      "bed_type": "d",
+      "booking_turn": "d",
+      "stock": "d",
+      "acreage": "0",
+      "available_from": "d",
+      "available_to": "d",
+      "max_adults": "d",
+      "max_children": "d",
+      "max_babies": "d",
+      "images": [
+        "media/1729149043373-12uhaawdhdhhaw.jpg.webp",
+        "media/1729149043379-1212631.jpg.webp",
+        "media/1729149043380-1230288.jpg.webp",
+        "media/1729149043382-1231048.jpg.webp"
+      ],
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "branch_id": "2",
+      "price_per_night": 1600000,
+      "price_per_month": 48000000,
+      "name": "Superior Ocean View",
+      "description": [
+        "Trải nghiệm kỳ nghỉ bên bờ biển với Superior Ocean View, nơi có tầm nhìn tuyệt đẹp ra đại dương.",
+        "Căn phòng được thiết kế hiện đại với không gian mở thoáng đãng, lý tưởng cho gia đình hoặc nhóm bạn."
+      ],
+      "comforts": [
+        "wifi",
+        "room_service"
+      ],
+      "bed_type": "queen",
+      "booking_turn": 1,
+      "stock": 15,
+      "acreage": 30,
+      "available_from": "2024-10-10T03:07:00.106Z",
+      "available_to": "2024-10-20T03:40:20.106Z",
+      "max_adults": 4,
+      "max_children": 2,
+      "max_babies": 1,
+      "images": [
+        "media/1729149043373-12uhaawdhdhhaw.jpg.webp",
+        "media/1729149043379-1212631.jpg.webp",
+        "media/1729149043380-1230288.jpg.webp",
+        "media/1729149043382-1231048.jpg.webp"
+      ]
+    },
+    {
+      "id": "3",
+      "branch_id": "3",
+      "price_per_night": 1200000,
+      "price_per_month": 36000000,
+      "name": "Standard Garden View",
+      "description": [
+        "Thư giãn tại Standard Garden View với không gian xanh mát và yên bình.",
+        "Phòng có thiết kế tối giản, thích hợp cho những ai yêu thích sự giản dị và thoải mái."
+      ],
+      "comforts": [
+        "free_breakfast",
+        "parking"
+      ],
+      "bed_type": "double",
+      "booking_turn": 0,
+      "stock": 10,
+      "acreage": 22,
+      "available_from": "2024-10-15T03:07:00.106Z",
+      "available_to": "2024-10-25T03:40:20.106Z",
+      "max_adults": 2,
+      "max_children": 1,
+      "max_babies": 2,
+      "images": [
+        "media/1729149043373-12uhaawdhdhhaw.jpg.webp",
+        "media/1729149043379-1212631.jpg.webp",
+        "media/1729149043380-1230288.jpg.webp",
+        "media/1729149043382-1231048.jpg.webp"
+      ]
+    },
+    {
+      "id": "4",
+      "branch_id": "4",
+      "price_per_night": 1800000,
+      "price_per_month": 54000000,
+      "name": "Luxury City Suite",
+      "description": [
+        "Tận hưởng trải nghiệm đẳng cấp tại Luxury City Suite, với không gian rộng rãi và tiện nghi sang trọng.",
+        "Phòng có tầm nhìn toàn cảnh thành phố và các dịch vụ cao cấp kèm theo."
+      ],
+      "comforts": [
+        "spa",
+        "gym"
+      ],
+      "bed_type": "king",
+      "booking_turn": 2,
+      "stock": 8,
+      "acreage": 35,
+      "available_from": "2024-10-20T03:07:00.106Z",
+      "available_to": "2024-10-30T03:40:20.106Z",
+      "max_adults": 3,
+      "max_children": 2,
+      "max_babies": 1,
+      "images": [
+        "media/1729149043373-12uhaawdhdhhaw.jpg.webp",
+        "media/1729149043379-1212631.jpg.webp",
+        "media/1729149043380-1230288.jpg.webp",
+        "media/1729149043382-1231048.jpg.webp"
+      ]
+    },
+    {
+      "id": "5",
+      "branch_id": "5",
+      "price_per_night": 2000000,
+      "price_per_month": 60000000,
+      "name": "Executive Suite",
+      "description": [
+        "Executive Suite mang đến sự sang trọng và thoải mái tuyệt đối cho kỳ nghỉ của bạn.",
+        "Phòng được trang bị đầy đủ các tiện nghi hiện đại và dịch vụ khách hàng chuyên nghiệp."
+      ],
+      "comforts": [
+        "airport_transfer",
+        "private_pool"
+      ],
+      "bed_type": "queen",
+      "booking_turn": 1,
+      "stock": 5,
+      "acreage": 40,
+      "available_from": "2024-11-01T03:07:00.106Z",
+      "available_to": "2024-11-10T03:40:20.106Z",
+      "max_adults": 2,
+      "max_children": 1,
+      "max_babies": 1,
+      "images": [
+        "media/1729149043373-12uhaawdhdhhaw.jpg.webp",
+        "media/1729149043379-1212631.jpg.webp",
+        "media/1729149043380-1230288.jpg.webp",
+        "media/1729149043382-1231048.jpg.webp"
+      ]
+    },
+    {
+      "branch_id": "1",
+      "price_per_night": "500",
+      "price_per_month": "5000",
+      "name": "Melody ",
+      "description": "Đẹp",
+      "comforts": "Wifi",
+      "bed_type": "Vip",
+      "booking_turn": "5",
+      "stock": "4",
+      "acreage": "50",
+      "available_from": "8:00",
+      "available_to": "11:00",
+      "max_adults": "5",
+      "max_children": "2",
+      "max_babies": "2",
+      "images": [
+        "blob:http://localhost:3000/607f191c-b4a9-4e2d-9167-fa8042b2a5e6"
+      ],
+      "id": "6"
+    },
+    {
+      "id": "7",
+      "branch_id": "2",
+      "name": "a",
+      "price_per_night": "a",
+      "price_per_month": "a",
+      "description": "a",
+      "bed_type": "â",
+      "comforts": "a",
+      "acreage": "a",
+      "booking_turn": "a",
+      "stock": "a",
+      "available_from": "a",
+      "available_to": "a",
+      "max_adults": "a",
+      "max_children": "a",
+      "max_babies": "a",
+      "images": [
+        "blob:http://localhost:3000/e1c8d034-b072-4609-aa4c-875b158d88a1"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "email": "bbb",
+      "phone": "bbb",
+      "fullname": "bbb",
+      "nationality": "bbb",
+      "last_booking": "bb",
+      "nights": "b",
+      "books": "bb",
+      "create_at": "",
+      "update_at": "Sat Oct 19 2024 08:04:24 GMT+0700 (Indochina Time)",
+      "roles": "b",
+      "id": "1"
+    }
+  ],
+  "bookings": [
+    {
+      "adults": "0",
+      "children": "0",
+      "babies": "0",
+      "checkin": "m",
+      "checkout": "m",
+      "fullname_order": "m",
+      "email_order": "m",
+      "phone_order": "m",
+      "fullname_customer": "m",
+      "email_customer": "m",
+      "phone_customer": "m",
+      "type": "bbb",
+      "range": "Nights",
+      "room_id": "bb",
+      "note": "0",
+      "id": "1"
+    }
+  ]
+}
