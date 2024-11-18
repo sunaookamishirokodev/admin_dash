@@ -25,7 +25,7 @@ export default function UpdateBranch() {
     queryKey: ["branchDetail", nameId],
     queryFn: () => branchAPI.detailBranch(nameId as string)
   })
-
+  
   const branchDetailData = getBranchDetailQuery.data?.data?.data
 
   useEffect(() => {

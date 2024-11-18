@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query"
 import { Helmet } from "react-helmet-async"
 import { useNavigate, useParams } from "react-router-dom"
 import { bookingAPI } from "src/apis/booking.api"
-import { TypeBooking } from "src/types/branches.type"
 
 export default function UpdateBooking() {
   const navigate = useNavigate()
@@ -19,7 +18,7 @@ export default function UpdateBooking() {
       return bookingAPI.detailBooking(nameId as string)
     }
   })
-  const bookingDetailData = getBookingDetailQuery.data?.data as TypeBooking
+  const bookingDetailData = getBookingDetailQuery.data?.data.data
 
   const handleBack = () => {
     navigate(-1)
@@ -62,7 +61,7 @@ export default function UpdateBooking() {
                 <input
                   type="text"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  defaultValue={bookingDetailData.id}
+                  defaultValue={bookingDetailData?.booking_id}
                   readOnly
                 />
               </div>
@@ -71,7 +70,7 @@ export default function UpdateBooking() {
                 <input
                   type="text"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  defaultValue={bookingDetailData.room_id}
+                  defaultValue={bookingDetailData?.room_id}
                   readOnly
                 />
               </div>
@@ -81,7 +80,7 @@ export default function UpdateBooking() {
                 <input
                   type="text"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  defaultValue={bookingDetailData.type}
+                  defaultValue={bookingDetailData?.type}
                   readOnly
                 />
               </div>
@@ -95,7 +94,7 @@ export default function UpdateBooking() {
                   <input
                     type="text"
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                    defaultValue={bookingDetailData.fullname_order}
+                    defaultValue={bookingDetailData?.fullname_order}
                     readOnly
                   />
                 </div>
@@ -105,7 +104,7 @@ export default function UpdateBooking() {
                   <input
                     type="text"
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                    defaultValue={bookingDetailData.email_order}
+                    defaultValue={bookingDetailData?.email_order}
                     readOnly
                   />
                 </div>
@@ -115,7 +114,7 @@ export default function UpdateBooking() {
                   <input
                     type="text"
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                    defaultValue={bookingDetailData.phone_order}
+                    defaultValue={bookingDetailData?.phone_order}
                     readOnly
                   />
                 </div>
@@ -130,7 +129,7 @@ export default function UpdateBooking() {
                   <input
                     type="text"
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                    defaultValue={bookingDetailData.fullname_customer}
+                    defaultValue={bookingDetailData?.fullname_customer}
                     readOnly
                   />
                 </div>
@@ -140,7 +139,7 @@ export default function UpdateBooking() {
                   <input
                     type="text"
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                    defaultValue={bookingDetailData.email_customer}
+                    defaultValue={bookingDetailData?.email_customer}
                     readOnly
                   />
                 </div>
@@ -150,7 +149,7 @@ export default function UpdateBooking() {
                   <input
                     type="text"
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                    defaultValue={bookingDetailData.phone_customer}
+                    defaultValue={bookingDetailData?.phone_customer}
                     readOnly
                   />
                 </div>
@@ -163,7 +162,7 @@ export default function UpdateBooking() {
                 <input
                   type="text"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  defaultValue={bookingDetailData.checkin}
+                  defaultValue={bookingDetailData?.checkin}
                   readOnly
                 />
               </div>
@@ -173,7 +172,7 @@ export default function UpdateBooking() {
                 <input
                   type="text"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                  defaultValue={bookingDetailData.checkout}
+                  defaultValue={bookingDetailData?.checkout}
                   readOnly
                 />
               </div>
@@ -187,7 +186,7 @@ export default function UpdateBooking() {
                   <input
                     type="text"
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                    defaultValue={bookingDetailData.adults as number}
+                    defaultValue={bookingDetailData?.adults as number}
                     readOnly
                   />
                 </div>
@@ -197,7 +196,7 @@ export default function UpdateBooking() {
                   <input
                     type="text"
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                    defaultValue={bookingDetailData.children as number}
+                    defaultValue={bookingDetailData?.children as number}
                     readOnly
                   />
                 </div>
@@ -207,7 +206,7 @@ export default function UpdateBooking() {
                   <input
                     type="text"
                     className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                    defaultValue={bookingDetailData.babies as number}
+                    defaultValue={bookingDetailData?.babies as number}
                     readOnly
                   />
                 </div>
@@ -219,7 +218,7 @@ export default function UpdateBooking() {
               <input
                 type="text"
                 className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm outline-none"
-                defaultValue={bookingDetailData.note}
+                defaultValue={bookingDetailData?.note}
                 readOnly
               />
             </div>
@@ -228,7 +227,7 @@ export default function UpdateBooking() {
               <label className="block text-sm font-medium text-gray-700">Phạm vi đặt phòng:</label>
               <select
                 className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                defaultValue={bookingDetailData.range}
+                defaultValue={bookingDetailData?.range}
                 disabled
               >
                 <option value="">Chọn</option>

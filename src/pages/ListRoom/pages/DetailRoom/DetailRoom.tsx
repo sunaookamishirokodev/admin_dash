@@ -233,9 +233,9 @@ export default function DetailRoom() {
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700">Hình Ảnh:</label>
               <div className="flex items-center gap-2">
-                {roomDetailData?.images?.map((img) => (
-                  <div key={img}>
-                    <img src={getMedia(img)} />
+                {roomDetailData?.images?.map((img, index) => (
+                  <div key={index}>
+                    <img src={getMedia(img as string)} />
                   </div>
                 ))}
               </div>

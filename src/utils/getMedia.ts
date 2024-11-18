@@ -1,3 +1,3 @@
-const getMedia = (url: string) => `http://localhost:6002/${url.replace("\\", "/")}`;
+const getMedia = (url: string) => `${import.meta.env.VITE_API_URL}/${url.replace("\\", "/")}`
 
-export default getMedia;
+export default getMedia
