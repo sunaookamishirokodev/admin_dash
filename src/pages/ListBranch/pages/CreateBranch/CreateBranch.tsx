@@ -14,6 +14,8 @@ export default function CreateBranch() {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const { state } = useLocation()
+  const [comforts, setComforts] = useState<string[]>([])
+  const [comfortInput, setComfortInput] = useState<string>("")
 
   const { handleSubmit, register, reset, setValue } = useForm<FormData>()
   const [images, setImages] = useState<string[]>([])
@@ -36,6 +38,18 @@ export default function CreateBranch() {
       }
     })
   })
+
+  const handleAddComfort = () => {
+    if (comfortInput.trim() !== "") {
+      setComforts([...comforts, comfortInput])
+      setComfortInput("")
+    }
+  }
+
+  const handleDeleteComfort = (index: number) => {
+    const updatedComforts = comforts.filter((_, i) => i !== index)
+    setComforts(updatedComforts)
+  }
 
   const handleClear = () => {
     reset()
@@ -118,7 +132,7 @@ export default function CreateBranch() {
             <textarea
               required
               className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-              rows={10} // Cố định 10 dòng
+              rows={10}
               {...register("description")}
             />
           </div>
@@ -166,12 +180,32 @@ export default function CreateBranch() {
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">Tiện Nghi:</label>
-            <input
-              type="text"
-              required
-              className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-              {...register("best_comforts")}
-            />
+            <div className="mt-1 flex items-center">
+              <input
+                type="text"
+                value={comfortInput}
+                onChange={(e) => setComfortInput(e.target.value)}
+                className="block w-full p-2 border border-gray-300 rounded text-sm"
+              />
+              <button
+                type="button"
+                onClick={handleAddComfort}
+                className="ml-2 px-3 py-1 bg-blue-500 text-white rounded text-sm"
+              >
+                Add
+              </button>
+            </div>
+            <ul className="mt-2">
+              {comforts.map((comfort, index) => (
+                <li key={index} className="flex items-center space-x-2">
+                  <span className="text-sm">{comfort}</span>
+                  <button type="button" onClick={() => handleDeleteComfort(index)} className="text-red-500 text-xs">
+                    Delete
+                  </button>
+                  <input type="hidden" value={comfort} {...register(`best_comforts.${index}`)} />
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="mb-4">
@@ -179,8 +213,8 @@ export default function CreateBranch() {
             <div className="flex items-center gap-2">
               <input
                 type="file"
-                multiple // Cho phép chọn nhiều tệp
-                accept="image/*" // Chỉ cho phép hình ảnh
+                multiple
+                accept="image/*"
                 onChange={handleImageChange}
                 className="mt-1 block w-[300px] p-2 border border-gray-300 rounded text-sm"
               />

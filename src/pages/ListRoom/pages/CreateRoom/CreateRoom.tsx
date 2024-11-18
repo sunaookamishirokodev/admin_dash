@@ -17,6 +17,20 @@ export default function CreateRoom() {
 
   const { handleSubmit, register, reset, setValue } = useForm<FormData>()
   const [images, setImages] = useState<string[]>([])
+  const [comforts, setComforts] = useState<string[]>([])
+  const [comfortInput, setComfortInput] = useState<string>("")
+
+  const handleAddComfort = () => {
+    if (comfortInput.trim() !== "") {
+      setComforts([...comforts, comfortInput])
+      setComfortInput("")
+    }
+  }
+
+  const handleDeleteComfort = (index: number) => {
+    const updatedComforts = comforts.filter((_, i) => i !== index)
+    setComforts(updatedComforts)
+  }
 
   const createRoomMutation = useMutation({
     mutationFn: (body: FormData) => {
@@ -144,24 +158,48 @@ export default function CreateRoom() {
             />
           </div>
 
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">Tiện Nghi:</label>
+            <div className="mt-1 flex items-center">
+              <input
+                type="text"
+                value={comfortInput}
+                onChange={(e) => setComfortInput(e.target.value)}
+                className="block w-full p-2 border border-gray-300 rounded text-sm"
+              />
+              <button
+                type="button"
+                onClick={handleAddComfort}
+                className="ml-2 px-3 py-1 bg-blue-500 text-white rounded text-sm"
+              >
+                Add
+              </button>
+            </div>
+            <ul className="mt-2">
+              {comforts.map((comfort, index) => (
+                <li key={index} className="flex items-center space-x-2">
+                  <span className="text-sm">{comfort}</span>
+                  <button type="button" onClick={() => handleDeleteComfort(index)} className="text-red-500 text-xs">
+                    Delete
+                  </button>
+                  <input type="hidden" value={comfort} {...register(`comforts.${index}`)} />
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-8">
             <div className="mb-4 w-full md:w-[200px]">
               <label className="block text-sm font-medium text-gray-700">Loại giường:</label>
-              <input
-                type="text"
+              <select
                 required
                 className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
                 {...register("bed_type")}
-              />
-            </div>
-            <div className="mb-4 w-full md:w-[200px]">
-              <label className="block text-sm font-medium text-gray-700">Danh sách tiện nghi:</label>
-              <input
-                type="text"
-                required
-                className="mt-1 block w-full p-2 border border-gray-300 rounded text-sm"
-                {...register("comforts")}
-              />
+              >
+                <option value="">Chọn loại giường</option>
+                <option value="single">Single</option>
+                <option value="king">King</option>
+              </select>
             </div>
             <div className="mb-4 w-full md:w-[200px]">
               <label className="block text-sm font-medium text-gray-700">Diện tích phòng:</label>

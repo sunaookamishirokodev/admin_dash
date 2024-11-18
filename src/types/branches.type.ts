@@ -8,7 +8,7 @@ export type TypeBranch = {
   ward: string
   best_comforts: string[]
   location: string
-  images?: string[]
+  images?: (string | File)[]
 }
 
 export type TypeRoom = {
@@ -28,7 +28,7 @@ export type TypeRoom = {
   max_adults: number // Số người lớn tối đa
   max_children: number // Số trẻ em tối đa
   max_babies: number // Số trẻ sơ sinh tối đa
-  images?: string[] // Danh sách đường dẫn hình ảnh (mảng các chuỗi)
+  images?: (string | File)[] // Danh sách đường dẫn hình ảnh (mảng các chuỗi)
 }
 
 export type TypeUser = {
